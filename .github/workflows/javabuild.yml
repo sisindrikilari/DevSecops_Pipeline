@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: java_build
+    runs-on: [self-hosted, linux, maven]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -42,8 +42,8 @@ jobs:
         with:
           version: latest
         env:
-          JF_URL: https://trialed2lwf.jfrog.io
+          JF_URL: https://triallfbk5d.jfrog.io
           JF_ACCESS_TOKEN: ${{ secrets.JFROG_TOKEN }}
       - name: Upload JAR to JFrog
         run: |
-           jf rt u "target/*.jar" "petjfrog-repo/"     
+           jf rt u "target/*.jar" " ci-repp/"     
