@@ -11,7 +11,7 @@ jobs:
       - name: Checkout code 
         uses: actions/checkout@v3
         with:
-         path: /home/ubuntu/actions-runner/_work/DevSecops_Pipeline/DevSecops_Pipeline/
+         path: DevSecops_Pipeline
 
 
       - name: Set up JDK 17
@@ -20,15 +20,14 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
           cache: maven
+      
+      - name: Build with Maven (explicit path)
+        run: |
+            export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+            export PATH=/opt/maven/bin:$JAVA_HOME/bin:$PATH
+            /opt/maven/bin/mvn -v
+            /opt/maven/bin/mvn clean install
 
-      - name: Cache Maven Dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-
-      - name: Build with Maven
-        run: mvn clean install
 
       # - name: Upload Build Artifact
       #   uses: actions/upload-artifact@v3
@@ -50,3 +49,4 @@ jobs:
       - name: Upload JAR to JFrog
         run: |
            jf rt u "target/*.jar" " ci-repp/"     
+
