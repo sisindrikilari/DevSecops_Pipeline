@@ -4,6 +4,13 @@ name: Sonar Scan
 on:
  workflow_call:
 
+ - name: Set JAVA_HOME and Maven in PATH
+   run: |
+      export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+       export PATH=/opt/maven/bin:$JAVA_HOME/bin:$PATH
+       mvn -v
+
+
 jobs:
   sonar:
     runs-on: self-hosted
