@@ -46,8 +46,9 @@ jobs:
         env:
           JF_URL: https://triallfbk5d.jfrog.io
           JF_ACCESS_TOKEN: ${{ secrets.JFROG_TOKEN }}
+
       - name: Upload JAR to JFrog
         run: |
-           jf rt u "target/*.jar" "sisindrikilari1213-generic-local/"
+           jf rt u "target/*.jar" "project/"
      
 
