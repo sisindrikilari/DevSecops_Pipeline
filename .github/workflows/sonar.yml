@@ -4,17 +4,24 @@ name: Sonar Scan
 on:
  workflow_call:
 
- - name: Set JAVA_HOME and Maven in PATH
-   run: |
-      export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-       export PATH=/opt/maven/bin:$JAVA_HOME/bin:$PATH
-       mvn -v
-
-
 jobs:
   sonar:
     runs-on: self-hosted
-    #needs: build  # Ensures Sonar runs after build succeeds
     steps:
+      - name: Set JAVA_HOME and Maven in PATH
+        run: |
+          export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+          export PATH=/opt/maven/bin:$JAVA_HOME/bin:$PATH
+          mvn -v
+
       - name: SonarCloud Scan
-        run: mvn sonar:sonar -Dsonar.projectKey=sisindrikilari_DevSecops_Pipeline -Dsonar.organization=sisindrikilari -Dsonar.host.url= https://sonarcloud.io -Dsonar.login=28ab27275057a104d3b6cc66d84f5a91d556cd6f
+        run: |
+          export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+          export PATH=/opt/maven/bin:$JAVA_HOME/bin:$PATH
+          mvn sonar:sonar \
+            -Dsonar.projectKey=sisindrikilari_DevSecops_Pipeline \
+            -Dsonar.organization=sisindrikilari \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=28ab27275057a104d3b6cc66d84f5a91d556cd6f
+
+
